@@ -1,6 +1,13 @@
 from gpiozero import MCP3008, RGBLED, Buzzer
 from time import sleep
 import threading, urllib.request
+import pymysql
+
+
+db = pymysql.connect(host='localhost',
+                     user='root',
+                     password='123..',
+                     database='runoob')
 
 led = RGBLED(red=2, green=4, blue=3)
 buzzer = Buzzer(17)
