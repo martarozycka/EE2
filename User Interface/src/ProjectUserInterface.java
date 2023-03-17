@@ -38,9 +38,11 @@ public class ProjectUserInterface extends JFrame {
 
     public ProjectUserInterface(String title){
         super(title);
+
         // add restriction so that min and max cant be bigger/smaller than actual value
         // optional: make 3 progress bars: 1 bar form a value lower than min to min, 1 from min to max and 1 from max to a higher value
         setContentPane(panel1);
+
         minTempSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -76,9 +78,9 @@ public class ProjectUserInterface extends JFrame {
                 JSlider source = (JSlider) e.getSource();
                 minPresValue.setText(String.valueOf(source.getValue()));
                 presProgressBar.setMinimum(minPres - 20);
-                if (Integer.parseInt(tempValue.getText()) < minPres){
+                if (Integer.parseInt(presValue.getText()) < minPres){
                     presProgressBar.setForeground(Color.GRAY);
-                    } else if (Integer.parseInt(tempValue.getText()) > maxPres) {
+                    } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
                     presProgressBar.setForeground(Color.RED);
                 }
                 else {
@@ -98,9 +100,9 @@ public class ProjectUserInterface extends JFrame {
                 JSlider source = (JSlider) e.getSource();
                 maxPresValue.setText(String.valueOf(source.getValue()));
                 presProgressBar.setMaximum(maxPres + 20);
-                if (Integer.parseInt(tempValue.getText()) < minPres){
+                if (Integer.parseInt(presValue.getText()) < minPres){
                     presProgressBar.setForeground(Color.GRAY);
-                } else if (Integer.parseInt(tempValue.getText()) > maxPres) {
+                } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
                     presProgressBar.setForeground(Color.RED);
                 }
                 else {
@@ -122,6 +124,51 @@ public class ProjectUserInterface extends JFrame {
         presValue.setText(String.valueOf(measurements_value[2]));
         tempProgressBar.setValue(Integer.parseInt(tempValue.getText()));
         presProgressBar.setValue(Integer.parseInt(presValue.getText()));
+        //init pressBar
+        minPres = 0;
+        presProgressBar.setMinimum(minPres - 20);
+        if (Integer.parseInt(presValue.getText()) < minPres){
+            presProgressBar.setForeground(Color.GRAY);
+        } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
+            presProgressBar.setForeground(Color.RED);
+        }
+        else {
+            presProgressBar.setForeground(Color.GREEN);
+        }
+
+        maxPres = 100;
+        presProgressBar.setMaximum(maxPres + 20);
+        if (Integer.parseInt(presValue.getText()) < minPres){
+            presProgressBar.setForeground(Color.GRAY);
+        } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
+            presProgressBar.setForeground(Color.RED);
+        }
+        else {
+            presProgressBar.setForeground(Color.GREEN);
+        }
+
+        //init tempBar
+        minTemp = 0;
+        tempProgressBar.setMinimum(minTemp - 20);
+        if (Integer.parseInt(tempValue.getText()) < minTemp){
+            tempProgressBar.setForeground(Color.GRAY);
+        } else if (Integer.parseInt(tempValue.getText()) >= maxTemp) {
+            tempProgressBar.setForeground(Color.RED);
+        }
+        else {
+            tempProgressBar.setForeground(Color.GREEN);
+        }
+
+        maxTemp = 100;
+        tempProgressBar.setMaximum(maxTemp + 20);
+        if (Integer.parseInt(tempValue.getText()) < minTemp){
+            tempProgressBar.setForeground(Color.GRAY);
+        } else if (Integer.parseInt(tempValue.getText()) >= maxTemp) {
+            tempProgressBar.setForeground(Color.RED);
+        }
+        else {
+            tempProgressBar.setForeground(Color.GREEN);
+        }
 
 
     }
