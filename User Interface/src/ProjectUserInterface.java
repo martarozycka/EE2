@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.concurrent.ExecutionException;
@@ -68,6 +69,8 @@ public class ProjectUserInterface extends JFrame {
                 JSlider source = (JSlider) e.getSource();
                 minPresValue.setText(String.valueOf(source.getValue()));
                 presProgressBar.setMinimum(Integer.parseInt(minPresValue.getText()));
+                presProgressBar.setStringPainted(true);
+                presProgressBar.setForeground(Color.GREEN);
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
                 String minp = "/" + minPresValue.getText();
@@ -81,6 +84,8 @@ public class ProjectUserInterface extends JFrame {
                 JSlider source = (JSlider) e.getSource();
                 maxPresValue.setText(String.valueOf(source.getValue()));
                 presProgressBar.setMaximum(Integer.parseInt(maxPresValue.getText()));
+                presProgressBar.setStringPainted(true);
+                presProgressBar.setForeground(Color.GREEN);
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
                 String minp = "/" + minPresValue.getText();
