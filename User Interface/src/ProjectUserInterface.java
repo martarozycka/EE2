@@ -29,20 +29,25 @@ public class ProjectUserInterface extends JFrame {
     private JLabel maxLabelPres;
     private JLabel presUnit;
     private JLabel tempUnit;
+    private int minPres;
+    private int maxPres;
+    private int minTemp;
+    private int maxTemp;
 
     DBTest db = new DBTest();
 
     public ProjectUserInterface(String title){
         super(title);
         // add restriction so that min and max cant be bigger/smaller than actual value
-        // optional: make 3 progress bars: 1 bar form a value lower then min to min, 1 from min to max and 1 from max to a higher value
+        // optional: make 3 progress bars: 1 bar form a value lower than min to min, 1 from min to max and 1 from max to a higher value
         setContentPane(panel1);
         minTempSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                minTemp = Integer.parseInt(minTempValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 minTempValue.setText(String.valueOf(source.getValue()));
-                tempProgressBar.setMinimum(Integer.parseInt(minTempValue.getText()));
+                tempProgressBar.setMinimum(minTemp - 20);
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
                 String minp = "/" + minPresValue.getText();
@@ -53,9 +58,10 @@ public class ProjectUserInterface extends JFrame {
         maxTempSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                maxTemp = Integer.parseInt(maxTempValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 maxTempValue.setText(String.valueOf(source.getValue()));
-                tempProgressBar.setMaximum(Integer.parseInt(maxTempValue.getText()));
+                tempProgressBar.setMaximum(maxTemp + 20);
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
                 String minp = "/" + minPresValue.getText();
@@ -66,11 +72,18 @@ public class ProjectUserInterface extends JFrame {
         minPresSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                minPres = Integer.parseInt(minPresValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 minPresValue.setText(String.valueOf(source.getValue()));
-                presProgressBar.setMinimum(Integer.parseInt(minPresValue.getText()));
-                presProgressBar.setStringPainted(true);
-                presProgressBar.setForeground(Color.GREEN);
+                presProgressBar.setMinimum(minPres - 20);
+                if (Integer.parseInt(tempValue.getText()) < minPres){
+                    presProgressBar.setForeground(Color.GRAY);
+                    } else if (Integer.parseInt(tempValue.getText()) > maxPres) {
+                    presProgressBar.setForeground(Color.RED);
+                }
+                else {
+                    presProgressBar.setForeground(Color.GREEN);
+                }
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
                 String minp = "/" + minPresValue.getText();
@@ -81,11 +94,18 @@ public class ProjectUserInterface extends JFrame {
         maxPresSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                maxPres = Integer.parseInt(maxPresValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 maxPresValue.setText(String.valueOf(source.getValue()));
-                presProgressBar.setMaximum(Integer.parseInt(maxPresValue.getText()));
-                presProgressBar.setStringPainted(true);
-                presProgressBar.setForeground(Color.GREEN);
+                presProgressBar.setMaximum(maxPres + 20);
+                if (Integer.parseInt(tempValue.getText()) < minPres){
+                    presProgressBar.setForeground(Color.GRAY);
+                } else if (Integer.parseInt(tempValue.getText()) > maxPres) {
+                    presProgressBar.setForeground(Color.RED);
+                }
+                else {
+                    presProgressBar.setForeground(Color.GREEN);
+                }
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
                 String minp = "/" + minPresValue.getText();
