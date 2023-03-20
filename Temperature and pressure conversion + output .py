@@ -6,8 +6,6 @@ import requests
 led = RGBLED(red=2, green=4, blue=3)
 buzzer = Buzzer(17)
 
-requests.get("https://studev.groept.be/api/a22ib2c01/InsertMeasurementValue/" + "123" + "/" + "123")
-
 while True:
     temperature = ((MCP3008(channel=0).value * 3.3 - 0.73) * 45.2 - 33)
     print(temperature)
@@ -26,6 +24,7 @@ while True:
     else:
         led.color = (0, 0, 1)
     sleep(1)
+    requests.get("https://studev.groept.be/api/a22ib2c01/InsertMeasurementValue/22/25")
 
 
 
