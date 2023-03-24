@@ -44,6 +44,24 @@ public class ProjectUserInterface extends JFrame {
         presValue.setText(String.valueOf(measurements_value[2]));
         tempProgressBar.setValue(Integer.parseInt(tempValue.getText()));
         presProgressBar.setValue(Integer.parseInt(presValue.getText()));
+
+        presProgressBar.setMinimum(minPres * 2 - maxPres);
+        if (Integer.parseInt(presValue.getText()) < minPres) {
+            presProgressBar.setForeground(Color.GRAY);
+        } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
+            presProgressBar.setForeground(new Color(224, 47, 20));
+        } else {
+            presProgressBar.setForeground(new Color(32, 199, 71));
+        }
+        presProgressBar.setMaximum(maxPres * 2 - minPres);
+        if (Integer.parseInt(presValue.getText()) < minPres) {
+            presProgressBar.setForeground(Color.GRAY);
+        } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
+            presProgressBar.setForeground(new Color(224, 47, 20));
+        } else {
+            presProgressBar.setForeground(new Color(32, 199, 71));
+        }
+
     }
 
     public ProjectUserInterface(String title) {
@@ -142,6 +160,7 @@ public class ProjectUserInterface extends JFrame {
         //init pressBar
         maxPres = 100;
         minPres = 0;
+        //presProgressBar.set
         presProgressBar.setMinimum(minPres * 2 - maxPres);
         presValue.setText("0");
         if (Integer.parseInt(presValue.getText()) < minPres) {
@@ -151,8 +170,8 @@ public class ProjectUserInterface extends JFrame {
         } else {
             presProgressBar.setForeground(new Color(32, 199, 71));
         }
-        minPres = 0;
         maxPres = 100;
+        minPres = 0;
         presProgressBar.setMaximum(maxPres * 2 - minPres);
         if (Integer.parseInt(presValue.getText()) < minPres) {
             presProgressBar.setForeground(Color.GRAY);
