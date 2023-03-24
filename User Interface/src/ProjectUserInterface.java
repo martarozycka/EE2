@@ -38,7 +38,16 @@ public class ProjectUserInterface extends JFrame {
 
     DBTest db = new DBTest();
 
-    public ProjectUserInterface(String title){
+    public void setLabels(){
+        Integer[] measurements_value = db.parseJSON(db.makeGETRequest("https://studev.groept.be/api/a22ib2c01/selectLatestMeasurements"));
+        tempValue.setText(String.valueOf(measurements_value[1]));
+        presValue.setText(String.valueOf(measurements_value[2]));
+        tempProgressBar.setValue(Integer.parseInt(tempValue.getText()));
+        presProgressBar.setValue(Integer.parseInt(presValue.getText()));
+    }
+
+    public ProjectUserInterface(String title) {
+
         super(title);
 
         // add restriction so that min and max cant be bigger/smaller than actual value
@@ -51,14 +60,13 @@ public class ProjectUserInterface extends JFrame {
                 minTemp = Integer.parseInt(minTempValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 minTempValue.setText(String.valueOf(source.getValue()));
-                tempProgressBar.setMinimum(minTemp*2-maxTemp);//1/3
-                if (Integer.parseInt(tempValue.getText()) < minTemp){
-                    tempProgressBar.setForeground(new Color(20,133,224));//blue
+                tempProgressBar.setMinimum(minTemp * 2 - maxTemp);//1/3
+                if (Integer.parseInt(tempValue.getText()) < minTemp) {
+                    tempProgressBar.setForeground(new Color(20, 133, 224));//blue
                 } else if (Integer.parseInt(tempValue.getText()) >= maxTemp) {
-                    tempProgressBar.setForeground(new Color(224,47,20));
-                }
-                else {
-                    tempProgressBar.setForeground(new Color(32,199,71));
+                    tempProgressBar.setForeground(new Color(224, 47, 20));
+                } else {
+                    tempProgressBar.setForeground(new Color(32, 199, 71));
                 }
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
@@ -73,14 +81,13 @@ public class ProjectUserInterface extends JFrame {
                 maxTemp = Integer.parseInt(maxTempValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 maxTempValue.setText(String.valueOf(source.getValue()));
-                tempProgressBar.setMaximum(maxTemp*2-minTemp);//1/3
-                if (Integer.parseInt(tempValue.getText()) < minTemp){
-                    tempProgressBar.setForeground(new Color(20,133,224));
+                tempProgressBar.setMaximum(maxTemp * 2 - minTemp);//1/3
+                if (Integer.parseInt(tempValue.getText()) < minTemp) {
+                    tempProgressBar.setForeground(new Color(20, 133, 224));
                 } else if (Integer.parseInt(tempValue.getText()) >= maxTemp) {
-                    tempProgressBar.setForeground(new Color(224,47,20));//red
-                }
-                else {
-                    tempProgressBar.setForeground(new Color(32,199,71));
+                    tempProgressBar.setForeground(new Color(224, 47, 20));//red
+                } else {
+                    tempProgressBar.setForeground(new Color(32, 199, 71));
                 }
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
@@ -95,14 +102,13 @@ public class ProjectUserInterface extends JFrame {
                 minPres = Integer.parseInt(minPresValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 minPresValue.setText(String.valueOf(source.getValue()));
-                presProgressBar.setMinimum(minPres*2-maxPres);
-                if (Integer.parseInt(presValue.getText()) < minPres){
+                presProgressBar.setMinimum(minPres * 2 - maxPres);
+                if (Integer.parseInt(presValue.getText()) < minPres) {
                     presProgressBar.setForeground(Color.GRAY);
-                    } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
-                    presProgressBar.setForeground(new Color(224,47,20));
-                }
-                else {
-                    presProgressBar.setForeground(new Color(32,199,71));
+                } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
+                    presProgressBar.setForeground(new Color(224, 47, 20));
+                } else {
+                    presProgressBar.setForeground(new Color(32, 199, 71));
                 }
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
@@ -117,14 +123,13 @@ public class ProjectUserInterface extends JFrame {
                 maxPres = Integer.parseInt(maxPresValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 maxPresValue.setText(String.valueOf(source.getValue()));
-                presProgressBar.setMaximum(maxPres*2-minPres);
-                if (Integer.parseInt(presValue.getText()) < minPres){
+                presProgressBar.setMaximum(maxPres * 2 - minPres);
+                if (Integer.parseInt(presValue.getText()) < minPres) {
                     presProgressBar.setForeground(Color.GRAY);
                 } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
-                    presProgressBar.setForeground(new Color(224,47,20));
-                }
-                else {
-                    presProgressBar.setForeground(new Color(32,199,71));
+                    presProgressBar.setForeground(new Color(224, 47, 20));
+                } else {
+                    presProgressBar.setForeground(new Color(32, 199, 71));
                 }
                 String mint = "/" + minTempValue.getText();
                 String maxt = "/" + maxTempValue.getText();
@@ -134,73 +139,66 @@ public class ProjectUserInterface extends JFrame {
             }
         });
 
-
-
-        // dummy data to check interface, actual value will be collected from database (sprint 3)
-        Integer[] measurements_value = db.parseJSON(db.makeGETRequest("https://studev.groept.be/api/a22ib2c01/selectLatestMeasurements"));
-        tempValue.setText(String.valueOf(measurements_value[1]));
-        presValue.setText(String.valueOf(measurements_value[2]));
-        tempProgressBar.setValue(Integer.parseInt(tempValue.getText()));
-        presProgressBar.setValue(Integer.parseInt(presValue.getText()));
-
         //init pressBar
         maxPres = 100;
         minPres = 0;
-        presProgressBar.setMinimum(minPres*2-maxPres);
-        if (Integer.parseInt(presValue.getText()) < minPres){
+        presProgressBar.setMinimum(minPres * 2 - maxPres);
+        presValue.setText("0");
+        if (Integer.parseInt(presValue.getText()) < minPres) {
             presProgressBar.setForeground(Color.GRAY);
         } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
-            presProgressBar.setForeground(new Color(224,47,20));
-        }
-        else {
-            presProgressBar.setForeground(new Color(32,199,71));
+            presProgressBar.setForeground(new Color(224, 47, 20));
+        } else {
+            presProgressBar.setForeground(new Color(32, 199, 71));
         }
         minPres = 0;
         maxPres = 100;
-        presProgressBar.setMaximum(maxPres*2-minPres);
-        if (Integer.parseInt(presValue.getText()) < minPres){
+        presProgressBar.setMaximum(maxPres * 2 - minPres);
+        if (Integer.parseInt(presValue.getText()) < minPres) {
             presProgressBar.setForeground(Color.GRAY);
         } else if (Integer.parseInt(presValue.getText()) >= maxPres) {
-            presProgressBar.setForeground(new Color(224,47,20));
-        }
-        else {
-            presProgressBar.setForeground(new Color(32,199,71));
+            presProgressBar.setForeground(new Color(224, 47, 20));
+        } else {
+            presProgressBar.setForeground(new Color(32, 199, 71));
         }
 
         //init tempBar
         minTemp = 0;
         maxTemp = 100;
-        tempProgressBar.setMinimum(minTemp*2-maxTemp);
-        if (Integer.parseInt(tempValue.getText()) < minTemp){
-            tempProgressBar.setForeground(new Color(20,133,224));
+        tempProgressBar.setMinimum(minTemp * 2 - maxTemp);
+        tempValue.setText("0");
+        if (Integer.parseInt(tempValue.getText()) < minTemp) {
+            tempProgressBar.setForeground(new Color(20, 133, 224));
         } else if (Integer.parseInt(tempValue.getText()) >= maxTemp) {
-            tempProgressBar.setForeground(new Color(224,47,20));
-        }
-        else {
-            tempProgressBar.setForeground(new Color(32,199,71));
+            tempProgressBar.setForeground(new Color(224, 47, 20));
+        } else {
+            tempProgressBar.setForeground(new Color(32, 199, 71));
         }
         minTemp = 0;
         maxTemp = 100;
-        tempProgressBar.setMaximum(maxTemp*2-minTemp);
-        if (Integer.parseInt(tempValue.getText()) < minTemp){
-            tempProgressBar.setForeground(new Color(20,133,224));
+        tempProgressBar.setMaximum(maxTemp * 2 - minTemp);
+        if (Integer.parseInt(tempValue.getText()) < minTemp) {
+            tempProgressBar.setForeground(new Color(20, 133, 224));
         } else if (Integer.parseInt(tempValue.getText()) >= maxTemp) {
-            tempProgressBar.setForeground(new Color(224,47,20));
+            tempProgressBar.setForeground(new Color(224, 47, 20));
+        } else {
+            tempProgressBar.setForeground(new Color(32, 199, 71));
         }
-        else {
-            tempProgressBar.setForeground(new Color(32,199,71));
-        }
+
 
 
     }
 
-    public static void main(String[] args) {
+        public static void main (String[]args){
 
-        JFrame ui = new ProjectUserInterface(("  ~ SHOON ~"));
-        ui.setVisible(true);
-        ui.setSize(600,200);
-        ui.setLocationRelativeTo(null);
-    }
+            ProjectUserInterface ui = new ProjectUserInterface(("  ~ SHOON ~"));
+            ui.setVisible(true);
+            ui.setSize(600, 200);
+            ui.setLocationRelativeTo(null);
+            while(true){
+                ui.setLabels();
+            }
+        }
 
 
 }
