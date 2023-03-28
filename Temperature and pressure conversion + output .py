@@ -1,5 +1,3 @@
-from time import sleep
-
 from gpiozero import MCP3008, RGBLED, Buzzer
 import requests
 
@@ -15,7 +13,7 @@ while True:
     maxPres = jsonresponse["max_pres"]
     temperature = ((MCP3008(channel=0).value * 3.3 - 0.73) * 45.2 - 33)
     print(temperature)
-    pressure = (MCP3008(channel=1).value) * 50
+    pressure = MCP3008(channel=1).value * 50
     if pressure < 8:
         pressure = 0
     print(pressure)
