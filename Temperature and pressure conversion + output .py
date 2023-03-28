@@ -28,7 +28,7 @@ while True:
         led.color = (0,1 ,0)
     else:
         led.color = (0, 0, 1)
-    requests.get("https://studev.groept.be/api/a22ib2c01/InsertMeasurementValue/"+str(temperature)+"/" + str(pressure))
+    requests.get("https://studev.groept.be/api/a22ib2c01/InsertMeasurementValue/"+str(temperature)+"/" + str(weight))
 
 
 
