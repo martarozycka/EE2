@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutionException;
 import javax.imageio.ImageIO;
 import java.io.File;
 public class ProjectUserInterface extends JFrame {
-    private JPanel panel1;
+    private JPanel panel1,panel2;
     private JProgressBar presProgressBar;
     private JProgressBar tempProgressBar;
     private JSlider minPresSlider;
@@ -70,7 +70,13 @@ public class ProjectUserInterface extends JFrame {
 
         // add restriction so that min and max cant be bigger/smaller than actual value
         // optional: make 3 progress bars: 1 bar form a value lower than min to min, 1 from min to max and 1 from max to a higher value
+        ImageIcon bg=new ImageIcon("src/icon/children-eating.jpg");
+        JLabel label1=new JLabel(bg);
+        label1.setSize(bg.getIconWidth(),bg.getIconHeight());
+        this.getLayeredPane().add(label1,0);
         setContentPane(panel1);
+        panel1.setBackground(new Color(245,231,177));
+        //setContentPane(panel2);
 
         minTempSlider.addChangeListener(new ChangeListener() {
             @Override
@@ -78,7 +84,11 @@ public class ProjectUserInterface extends JFrame {
                 minTemp = Integer.parseInt(minTempValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 minTempValue.setText(String.valueOf(source.getValue()));
+                if (maxTemp<minTemp || minTemp>maxTemp) {
+                    JOptionPane.showMessageDialog(null,"Minimum value larger than maximum value");
+                }
                 tempProgressBar.setMinimum(minTemp * 2 - maxTemp);//1/3
+
                 if (Integer.parseInt(tempValue.getText()) < minTemp) {
                     tempProgressBar.setForeground(new Color(20, 133, 224));//blue
                 } else if (Integer.parseInt(tempValue.getText()) >= maxTemp) {
@@ -99,6 +109,9 @@ public class ProjectUserInterface extends JFrame {
                 maxTemp = Integer.parseInt(maxTempValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 maxTempValue.setText(String.valueOf(source.getValue()));
+                if (maxTemp<minTemp || minTemp>maxTemp) {
+                    JOptionPane.showMessageDialog(null,"Maximum value smaller than minimum value");
+                }
                 tempProgressBar.setMaximum(maxTemp * 2 - minTemp);//1/3
                 if (Integer.parseInt(tempValue.getText()) < minTemp) {
                     tempProgressBar.setForeground(new Color(20, 133, 224));
@@ -118,6 +131,9 @@ public class ProjectUserInterface extends JFrame {
             @Override
             public void stateChanged(ChangeEvent e) {
                 minPres = Integer.parseInt(minPresValue.getText());
+                if (minPres>maxPres || maxPres<minPres) {
+                    JOptionPane.showMessageDialog(null,"Minimum value larger than maximum value");
+                }
                 JSlider source = (JSlider) e.getSource();
                 minPresValue.setText(String.valueOf(source.getValue()));
                 presProgressBar.setMinimum(minPres * 2 - maxPres);
@@ -141,6 +157,9 @@ public class ProjectUserInterface extends JFrame {
                 maxPres = Integer.parseInt(maxPresValue.getText());
                 JSlider source = (JSlider) e.getSource();
                 maxPresValue.setText(String.valueOf(source.getValue()));
+                if (maxPres<minPres || minPres>maxPres) {
+                    JOptionPane.showMessageDialog(null,"Maximum value smaller than minimum value");
+                }
                 presProgressBar.setMaximum(maxPres * 2 - minPres);
                 if (Integer.parseInt(presValue.getText()) < minPres) {
                     presProgressBar.setForeground(Color.GRAY);
@@ -211,9 +230,23 @@ public class ProjectUserInterface extends JFrame {
         public static void main (String[]args){
 
             ProjectUserInterface ui = new ProjectUserInterface(("  ~ SHOON ~"));
-            ui.setVisible(true);
-            ui.setSize(600, 200);
+
+            //JPanel pan=(JPanel)ui.getContentPane();
+
+//            ui.getLayeredPane().add(,1);
+            ui.setSize(915, 650);
+            //pan.setOpaque(false);
+//            pan.setLayout(new FlowLayout());
+
+            //ui.setSize(bg.getIconWidth(),bg.getIconHeight());
+
+
+            //ui.setUndecorated(true);
+            //ui.setBackground(new Color(0,0,0,0));
             ui.setLocationRelativeTo(null);
+            ui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ui.setVisible(true);
+
             while(true){
                 ui.setLabels();
             }
