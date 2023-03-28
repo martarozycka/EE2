@@ -9,15 +9,16 @@ while True:
     jsonresponse = borders.json()[0]
     minTemp = jsonresponse["min_temp"]
     maxTemp = jsonresponse["max_temp"]
-    minPres = jsonresponse["min_pres"]
-    maxPres = jsonresponse["max_pres"]
+    minWeight = jsonresponse["min_pres"]
+    maxWeight = jsonresponse["max_pres"]
     temperature = ((MCP3008(channel=0).value * 3.3 - 0.73) * 45.2 - 33)
     print(temperature)
     pressure = MCP3008(channel=1).value * 50
-    if pressure < 8:
+    if pressure < 8: #filter out noise
         pressure = 0
-    print(pressure)
-    if pressure <= maxPres:
+    weight = 6.625*pressure
+    print(weight)
+    if weight <= maxWeight:
         buzzer.off()
     else:
         buzzer.on()
