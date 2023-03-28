@@ -85,7 +85,7 @@ public class ProjectUserInterface extends JFrame {
                 JSlider source = (JSlider) e.getSource();
                 minTempValue.setText(String.valueOf(source.getValue()));
                 if (maxTemp<minTemp || minTemp>maxTemp) {
-                    JOptionPane.showMessageDialog(null,"Minimum value larger than maximum value");
+                    JOptionPane.showMessageDialog(null,"Minimum value larger than maximum value. Please reset the user interface.");
                 }
                 tempProgressBar.setMinimum(minTemp * 2 - maxTemp);//1/3
 
@@ -110,7 +110,7 @@ public class ProjectUserInterface extends JFrame {
                 JSlider source = (JSlider) e.getSource();
                 maxTempValue.setText(String.valueOf(source.getValue()));
                 if (maxTemp<minTemp || minTemp>maxTemp) {
-                    JOptionPane.showMessageDialog(null,"Maximum value smaller than minimum value");
+                    JOptionPane.showMessageDialog(null,"Maximum value smaller than minimum value. Please reset the user interface.");
                 }
                 tempProgressBar.setMaximum(maxTemp * 2 - minTemp);//1/3
                 if (Integer.parseInt(tempValue.getText()) < minTemp) {
@@ -132,7 +132,7 @@ public class ProjectUserInterface extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 minPres = Integer.parseInt(minPresValue.getText());
                 if (minPres>maxPres || maxPres<minPres) {
-                    JOptionPane.showMessageDialog(null,"Minimum value larger than maximum value");
+                    JOptionPane.showMessageDialog(null,"Minimum value larger than maximum value. Please reset the user interface.");
                 }
                 JSlider source = (JSlider) e.getSource();
                 minPresValue.setText(String.valueOf(source.getValue()));
@@ -158,7 +158,7 @@ public class ProjectUserInterface extends JFrame {
                 JSlider source = (JSlider) e.getSource();
                 maxPresValue.setText(String.valueOf(source.getValue()));
                 if (maxPres<minPres || minPres>maxPres) {
-                    JOptionPane.showMessageDialog(null,"Maximum value smaller than minimum value");
+                    JOptionPane.showMessageDialog(null,"Maximum value smaller than minimum value. Please reset the user interface.");
                 }
                 presProgressBar.setMaximum(maxPres * 2 - minPres);
                 if (Integer.parseInt(presValue.getText()) < minPres) {
