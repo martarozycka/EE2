@@ -68,15 +68,9 @@ public class ProjectUserInterface extends JFrame {
 
         super(title);
 
-        // add restriction so that min and max cant be bigger/smaller than actual value
-        // optional: make 3 progress bars: 1 bar form a value lower than min to min, 1 from min to max and 1 from max to a higher value
-        ImageIcon bg=new ImageIcon("src/icon/children-eating.jpg");
-        JLabel label1=new JLabel(bg);
-        label1.setSize(bg.getIconWidth(),bg.getIconHeight());
-        this.getLayeredPane().add(label1,0);
         setContentPane(panel1);
         panel1.setBackground(new Color(245,231,177));
-        //setContentPane(panel2);
+
 
         minTempSlider.addChangeListener(new ChangeListener() {
             @Override

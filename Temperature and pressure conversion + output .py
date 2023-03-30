@@ -11,7 +11,7 @@ while True:
     maxTemp = jsonresponse["max_temp"]
     minWeight = jsonresponse["min_pres"]
     maxWeight = jsonresponse["max_pres"]
-    temperature = ((MCP3008(channel=0).value * 3.3 - 0.73) * 45.2 - 33)
+    temperature = MCP3008(channel=0).value * 149.16 - 65.996
     print(temperature)
     pressure = MCP3008(channel=1).value * 50
     if pressure < 8: #filter out noise
